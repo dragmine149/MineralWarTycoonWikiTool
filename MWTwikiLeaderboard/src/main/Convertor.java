@@ -49,7 +49,9 @@ public class Convertor {
 	private void initialize() {
 		// frame
 		frmLeaderboardConvertor = new JFrame();
-		frmLeaderboardConvertor.setBackground(Color.BLACK);
+		frmLeaderboardConvertor.getContentPane().setBackground(Color.DARK_GRAY);
+		frmLeaderboardConvertor.getContentPane().setForeground(Color.DARK_GRAY);
+		frmLeaderboardConvertor.setBackground(Color.GRAY);
 		frmLeaderboardConvertor.setResizable(false);
 		frmLeaderboardConvertor.setTitle("Leaderboard Convertor");
 		frmLeaderboardConvertor.setBounds(100, 100, 800, 300);
@@ -63,11 +65,13 @@ public class Convertor {
 		
 		// Data input
 		JEditorPane Input = new JEditorPane();
+		Input.setBackground(Color.LIGHT_GRAY);
 		Input.setToolTipText("Input Data Here.");
 		Input.setBounds(0, 0, 332, 106);
 		frmLeaderboardConvertor.getContentPane().add(Input);
 		
 		TextArea UpdateLog = new TextArea();
+		UpdateLog.setBackground(Color.LIGHT_GRAY);
 		UpdateLog.setText("INFORMATION:\nThis application was made by dragmine149 for use when\nconverting a leaderboard file made by Jamedius2018\n\nHOW TO USE:\nGet the recent week rebirth file from either #killstreak or #rebirth\nand paste it in the box above this box\nClick the copy button and you have your table,\nThen go over to the wiki edit source and past\nthe new table over the old table.");
 		UpdateLog.setEditable(false);
 		UpdateLog.setBounds(450, 0, 350, 262);
@@ -92,6 +96,7 @@ public class Convertor {
 		
 		// Information (about the app, etc...)
 		TextArea Information = new TextArea();
+		Information.setBackground(Color.LIGHT_GRAY);
 		Information.setEditable(false);
 		Information.setText("INFORMATION:\n"
 				+ "This application was made by dragmine149 for use when\n" 
