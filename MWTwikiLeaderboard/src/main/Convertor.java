@@ -54,8 +54,8 @@ public class Convertor {
 	 * Initialize the contents of the frame.
 	 */
 	
-	private Boolean Dark = true;
-	private Boolean Info = false;
+	private boolean Dark = true;
+	private boolean Info = false;
 	
 	private void initialize() {
 		// frame
