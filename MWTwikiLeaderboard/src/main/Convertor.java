@@ -1,6 +1,8 @@
 package main;
 
+import java.awt.Color;
 import java.awt.EventQueue;
+import java.awt.TextArea;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.concurrent.TimeUnit;
@@ -8,8 +10,7 @@ import java.util.concurrent.TimeUnit;
 import javax.swing.JButton;
 import javax.swing.JEditorPane;
 import javax.swing.JFrame;
-import java.awt.TextArea;
-import java.awt.Color;
+import javax.swing.WindowConstants;
 
 
 /**
@@ -29,6 +30,7 @@ public class Convertor {
 	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
+			@Override
 			public void run() {
 				try {
 					Convertor window = new Convertor();
@@ -59,7 +61,7 @@ public class Convertor {
 		frmLeaderboardConvertor.setResizable(false);
 		frmLeaderboardConvertor.setTitle("Leaderboard Convertor");
 		frmLeaderboardConvertor.setBounds(100, 100, 800, 300);
-		frmLeaderboardConvertor.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmLeaderboardConvertor.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		frmLeaderboardConvertor.getContentPane().setLayout(null);
 		
 		// Copy button
@@ -127,7 +129,7 @@ public class Convertor {
 		Information.setBounds(0, 112, 444, 160);
 		frmLeaderboardConvertor.getContentPane().add(Information);
 		
-		JButton DarkMods = new JButton("DarkMode");
+		JButton DarkMods = new JButton("LightMode");
 		DarkMods.setBounds(327, 39, 117, 29);
 		frmLeaderboardConvertor.getContentPane().add(DarkMods);
 		DarkMods.addActionListener(new ActionListener() {
@@ -136,12 +138,12 @@ public class Convertor {
 			public void actionPerformed(ActionEvent arg0) {
 				Dark = !Dark;
 				if (!Dark) {
-					DarkMods.setText("LightMode");
+					DarkMods.setText("DarkMode");
 					Information.setBackground(Color.WHITE);
 					UpdateLog.setBackground(Color.WHITE);
 					frmLeaderboardConvertor.getContentPane().setBackground(Color.WHITE);
 				} else {
-					DarkMods.setText("DarkMode");
+					DarkMods.setText("LightMode");
 					Information.setBackground(Color.LIGHT_GRAY);
 					UpdateLog.setBackground(Color.LIGHT_GRAY);
 					frmLeaderboardConvertor.getContentPane().setBackground(Color.DARK_GRAY);
@@ -178,7 +180,6 @@ public class Convertor {
 						try {
 							TimeUnit.SECONDS.sleep(5);
 						} catch (InterruptedException e) {
-							// TODO Auto-generated catch block
 							e.printStackTrace();
 						} finally {
 							Copy.setText("Copy");
