@@ -11,6 +11,8 @@ import javax.swing.JButton;
 import javax.swing.JEditorPane;
 import javax.swing.JFrame;
 import javax.swing.WindowConstants;
+import javax.swing.JMenuBar;
+import java.awt.Font;
 
 
 /**
@@ -23,7 +25,6 @@ import javax.swing.WindowConstants;
 public class Convertor {
 
 	private JFrame frmLeaderboardConvertor;
-	private Boolean Dark = true;
 
 	/**
 	 * Launch the application.
@@ -52,22 +53,23 @@ public class Convertor {
 	/**
 	 * Initialize the contents of the frame.
 	 */
+	
+	private Boolean Dark = true;
+	private Boolean Info = false;
+	
 	private void initialize() {
 		// frame
 		frmLeaderboardConvertor = new JFrame();
+		frmLeaderboardConvertor.setFont(new Font("Roboto Slab", Font.PLAIN, 12));
+		frmLeaderboardConvertor.setForeground(Color.BLACK);
 		frmLeaderboardConvertor.getContentPane().setBackground(Color.DARK_GRAY);
 		frmLeaderboardConvertor.getContentPane().setForeground(Color.DARK_GRAY);
-		frmLeaderboardConvertor.setBackground(Color.GRAY);
+		frmLeaderboardConvertor.setBackground(Color.BLACK);
 		frmLeaderboardConvertor.setResizable(false);
 		frmLeaderboardConvertor.setTitle("Leaderboard Convertor");
 		frmLeaderboardConvertor.setBounds(100, 100, 800, 300);
 		frmLeaderboardConvertor.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		frmLeaderboardConvertor.getContentPane().setLayout(null);
-		
-		// Copy button
-		JButton Copy = new JButton("Copy");
-		Copy.setBounds(327, 6, 117, 29);
-		frmLeaderboardConvertor.getContentPane().add(Copy);
 		
 		// Data input
 		JEditorPane Input = new JEditorPane();
@@ -80,12 +82,13 @@ public class Convertor {
 		UpdateLog.setBackground(Color.LIGHT_GRAY);
 		UpdateLog.setText("INFORMATION:\nThis application was made by dragmine149 for use when\nconverting a leaderboard file made by Jamedius2018\n\nHOW TO USE:\nGet the recent week rebirth file from either #killstreak or #rebirth\nand paste it in the box above this box\nClick the copy button and you have your table,\nThen go over to the wiki edit source and past\nthe new table over the old table.");
 		UpdateLog.setEditable(false);
-		UpdateLog.setBounds(450, 0, 350, 262);
+		UpdateLog.setBounds(338, 0, 462, 262);
 		UpdateLog.setText("UPDATE LOG:\n"
 				+ "Update 3:\n"
 				+ "- DARK MODE, and a button to switch from dark to light if wanted.\n"
 				+ "- Information, when you click 'copy' it will tell you if it was\n"
 				+ "  sucesffuly or failed. \n"
+				+ "- Menu bar, keeping things organised."
 				+ "\n\n"
 				+ "Update 2.1:\n"
 				+ "- Default dark mode, no button to switch yet.\n"
@@ -113,25 +116,55 @@ public class Convertor {
 		Information.setBackground(Color.LIGHT_GRAY);
 		Information.setEditable(false);
 		Information.setText("INFORMATION:\n"
-				+ "This application was made by dragmine149 for use when\n" 
+				+ "This application was made by dragmine149 and Guy_732 for use when\n" 
 				+ "converting a leaderboard file made by Jamedius2018\n\n"
 				+ "NOTES:\n"
 				+ "- When copying to the wiki, you might see a line gap between each line.\n"
 				+ "Do not worry about this as this doesn't change the visual effect\n"
-				+ "- If you find any bugs, please ping me (dragmine149#5048) on discord\n"
-				+ "with the bug, I would also like a screenshot but is not needed.\n\n"
+				+ "- If you find any bugs, please open an issue with the link below\n"
+				+ "https://github.com/dragmine149/MineralWarTycoonWikiTool/issues/new\n\n"
 				+ "HOW TO USE:\n"
 				+ "Get the recent week rebirth file from either #killstreak or #rebirth\n"
 				+ "and paste it in the box above this box\n"
 				+ "Click the copy button and you have your table,\n" 
 				+ "Then go over to the wiki edit source and past\n"
 				+ "the new table over the old table.");
-		Information.setBounds(0, 112, 444, 160);
+		Information.setBounds(338, 0, 462, 262);
 		frmLeaderboardConvertor.getContentPane().add(Information);
 		
+		JMenuBar menuBar = new JMenuBar();
+		menuBar.setBackground(Color.GRAY);
+		menuBar.setForeground(Color.GRAY);
+		frmLeaderboardConvertor.setJMenuBar(menuBar);
+		
+		// Copy button
+		JButton Copy = new JButton("Copy");
+		menuBar.add(Copy);
+		
 		JButton DarkMods = new JButton("LightMode");
-		DarkMods.setBounds(327, 39, 117, 29);
-		frmLeaderboardConvertor.getContentPane().add(DarkMods);
+		menuBar.add(DarkMods);
+		
+		JButton UInfo = new JButton("Information");
+		menuBar.add(UInfo);
+		
+		UInfo.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				Info = !Info;
+				if (Info) {
+					UInfo.setText("UpdateLog");
+					Information.setVisible(true);
+					UpdateLog.setVisible(false);
+				} else {
+					UInfo.setText("Information");
+					UpdateLog.setVisible(true);
+					Information.setVisible(false);
+				}
+			}
+			
+		});
+		
 		DarkMods.addActionListener(new ActionListener() {
 			
 			@Override
@@ -142,11 +175,13 @@ public class Convertor {
 					Information.setBackground(Color.WHITE);
 					UpdateLog.setBackground(Color.WHITE);
 					frmLeaderboardConvertor.getContentPane().setBackground(Color.WHITE);
+					menuBar.setBackground(Color.WHITE);
 				} else {
 					DarkMods.setText("LightMode");
 					Information.setBackground(Color.LIGHT_GRAY);
 					UpdateLog.setBackground(Color.LIGHT_GRAY);
 					frmLeaderboardConvertor.getContentPane().setBackground(Color.DARK_GRAY);
+					menuBar.setBackground(Color.LIGHT_GRAY);
 				}
 			}
 		});
@@ -157,6 +192,7 @@ public class Convertor {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				try {
+					
 					System.out.print("Coppying...\n"); // print
 					
 					String Text = Input.getText().toString(); // set (later)
