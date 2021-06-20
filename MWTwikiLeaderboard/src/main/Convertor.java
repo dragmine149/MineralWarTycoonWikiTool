@@ -1,13 +1,17 @@
 package main;
+
+import java.awt.Color;
 import java.awt.EventQueue;
+import java.awt.TextArea;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.concurrent.TimeUnit;
 
 import javax.swing.JButton;
 import javax.swing.JEditorPane;
 import javax.swing.JFrame;
-import java.awt.TextArea;
-import java.awt.Color;
+import javax.swing.WindowConstants;
+
 
 /**
  * 
@@ -19,12 +23,14 @@ import java.awt.Color;
 public class Convertor {
 
 	private JFrame frmLeaderboardConvertor;
+	private Boolean Dark = true;
 
 	/**
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
+			@Override
 			public void run() {
 				try {
 					Convertor window = new Convertor();
@@ -55,7 +61,7 @@ public class Convertor {
 		frmLeaderboardConvertor.setResizable(false);
 		frmLeaderboardConvertor.setTitle("Leaderboard Convertor");
 		frmLeaderboardConvertor.setBounds(100, 100, 800, 300);
-		frmLeaderboardConvertor.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmLeaderboardConvertor.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		frmLeaderboardConvertor.getContentPane().setLayout(null);
 		
 		// Copy button
@@ -76,6 +82,14 @@ public class Convertor {
 		UpdateLog.setEditable(false);
 		UpdateLog.setBounds(450, 0, 350, 262);
 		UpdateLog.setText("UPDATE LOG:\n"
+				+ "Update 3:\n"
+				+ "- DARK MODE, and a button to switch from dark to light if wanted.\n"
+				+ "- Information, when you click 'copy' it will tell you if it was\n"
+				+ "  sucesffuly or failed. \n"
+				+ "\n\n"
+				+ "Update 2.1:\n"
+				+ "- Default dark mode, no button to switch yet.\n"
+				+ "\n\n"
 				+ "Update 2:\n"
 				+ "- rewrote generation of leaderboard table\n"
 				+ "- Using date time instead of splitting it from the input\n"
@@ -115,22 +129,73 @@ public class Convertor {
 		Information.setBounds(0, 112, 444, 160);
 		frmLeaderboardConvertor.getContentPane().add(Information);
 		
+		JButton DarkMods = new JButton("LightMode");
+		DarkMods.setBounds(327, 39, 117, 29);
+		frmLeaderboardConvertor.getContentPane().add(DarkMods);
+		DarkMods.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				Dark = !Dark;
+				if (!Dark) {
+					DarkMods.setText("DarkMode");
+					Information.setBackground(Color.WHITE);
+					UpdateLog.setBackground(Color.WHITE);
+					frmLeaderboardConvertor.getContentPane().setBackground(Color.WHITE);
+				} else {
+					DarkMods.setText("LightMode");
+					Information.setBackground(Color.LIGHT_GRAY);
+					UpdateLog.setBackground(Color.LIGHT_GRAY);
+					frmLeaderboardConvertor.getContentPane().setBackground(Color.DARK_GRAY);
+				}
+			}
+		});
+		
 		// copy clicked 
 		Copy.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				System.out.print("Coppying...\n"); // print
-				
-				String Text = Input.getText().toString(); // set (later)
-				String Output = "Error in generating data."; // set
-				
-				Output = Create.Info(Text, OptionCalc.Input(Text)); // get the output
-				
-				if (Output == "Error in generating data.") { // check IF output
-					System.out.print(Output + "\n\n"); // print
-				} else {
-					KeyboardCopy.Copy(Output); // else copy
+				try {
+					System.out.print("Coppying...\n"); // print
+					
+					String Text = Input.getText().toString(); // set (later)
+					String Output = "Error in generating data."; // set
+					
+					Output = Create.Info(Text, OptionCalc.Input(Text)); // get the output
+					
+					if (Output == "Error in generating data.") { // check IF output
+						System.out.print(Output + "\n\n"); // print
+						Copy.setText(Output);
+						try {
+							TimeUnit.SECONDS.sleep(5);
+						} catch (InterruptedException e) {
+							e.printStackTrace();
+						} finally {
+							Copy.setText("Copy");
+						}
+					} else {
+						KeyboardCopy.Copy(Output); // else copy
+						Copy.setText("Coppied!");
+						try {
+							TimeUnit.SECONDS.sleep(5);
+						} catch (InterruptedException e) {
+							e.printStackTrace();
+						} finally {
+							Copy.setText("Copy");
+						}
+					}
+				} catch (Exception e) {
+					e.printStackTrace();
+				} finally {
+					Copy.setText("Error whilst running.");
+					try {
+						TimeUnit.SECONDS.sleep(5);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					} finally {
+						Copy.setText("Copy");
+					}
 				}
 			}
 			
