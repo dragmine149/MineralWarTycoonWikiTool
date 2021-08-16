@@ -75,11 +75,6 @@ public class Convertor {
 		frmLeaderboardConvertor.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		frmLeaderboardConvertor.getContentPane().setLayout(null);
 
-		// Copy button
-		JButton Copy = new JButton("Copy");
-		Copy.setBounds(327, -2, 117, 29);
-		frmLeaderboardConvertor.getContentPane().add(Copy);
-
 		// Data input
 		JEditorPane Input = new JEditorPane();
 		Input.setBackground(Color.LIGHT_GRAY);
@@ -101,8 +96,8 @@ public class Convertor {
 				+ "(killstreak and rebirth)\n"
 				+ "- Changed how getting the leaderboard name works.\n"
 				+ "(Better for future)\n"
-				+ "- Fixed an issue with the month name sometimes being incorrect"
-				+ "- UI Update, NOTE: Menu bar might not go into dark mode. (don't know why)"
+				+ "- Fixed an issue with the month name sometimes being incorrect\n"
+				+ "- UI Update, NOTE: Menu bar might not go into dark mode. (don't know why)\n"
 				+ "\n\n"
 				+ "Update 2.1:\n"
 				+ "- Default dark mode, no button to switch yet.\n"
@@ -145,6 +140,13 @@ public class Convertor {
 				+ "the new table over the old table.");
 		Information.setBounds(338, 0, 462, 262);
 		frmLeaderboardConvertor.getContentPane().add(Information);
+		
+		JLabel CopyInfo = new JLabel("Ready for use");
+		CopyInfo.setBounds(0, 117, 332, 30);
+		frmLeaderboardConvertor.getContentPane().add(CopyInfo);
+		CopyInfo.setFont(new Font("Lucida Grande", Font.PLAIN, 15));
+		CopyInfo.setForeground(Color.WHITE);
+		CopyInfo.setBackground(Color.LIGHT_GRAY);
 
 		JMenuBar menuBar = new JMenuBar();
 		menuBar.setBackground(Color.GRAY);
@@ -159,14 +161,6 @@ public class Convertor {
 
 		JButton DarkMods = new JButton("LightMode");
 		DarkMods.setBounds(327, 59, 117, 29);
-		frmLeaderboardConvertor.getContentPane().add(DarkMods);
-
-		JLabel CopyInfo = new JLabel("Ready for use");
-		CopyInfo.setFont(new Font("Lucida Grande", Font.PLAIN, 10));
-		CopyInfo.setForeground(Color.WHITE);
-		CopyInfo.setBackground(Color.LIGHT_GRAY);
-		CopyInfo.setBounds(337, 27, 100, 34);
-		frmLeaderboardConvertor.getContentPane().add(CopyInfo);
 
 		menuBar.add(DarkMods);
 
@@ -201,17 +195,15 @@ public class Convertor {
 					Information.setBackground(Color.WHITE);
 					UpdateLog.setBackground(Color.WHITE);
 					frmLeaderboardConvertor.getContentPane().setBackground(Color.WHITE);
-					CopyInfo.setBackground(Color.WHITE);
-					CopyInfo.setForeground(Color.BLACK);
 					menuBar.setBackground(Color.WHITE);
+					CopyInfo.setForeground(Color.BLACK);
 				} else {
 					DarkMods.setText("LightMode");
 					Information.setBackground(Color.LIGHT_GRAY);
 					UpdateLog.setBackground(Color.LIGHT_GRAY);
 					frmLeaderboardConvertor.getContentPane().setBackground(Color.DARK_GRAY);
-					CopyInfo.setBackground(Color.LIGHT_GRAY);
-					CopyInfo.setForeground(Color.WHITE);
 					menuBar.setBackground(Color.LIGHT_GRAY);
+					CopyInfo.setForeground(Color.WHITE);
 				}
 			}
 		});
@@ -230,14 +222,13 @@ public class Convertor {
 
 					int O = OptionCalc.Input(Text);
 					if (O == -1) {
-						System.err.println("Error in getting leaderboard value");
-						throw new Error("Error in getting leaderboard value");
+						throw new Exception("Error in getting leaderboard value");
 					}
 
 					Output = Create.Info(Text, O); // get the output
 
 					if (Output == "Error in generating data.") { // check IF output
-						System.out.print(Output + "\n\n"); // print
+						System.out.println(Output + "\n"); // print
 						CopyInfo.setText(Output);
 					} else {
 						KeyboardCopy.Copy(Output); // else copy
@@ -246,8 +237,8 @@ public class Convertor {
 				}
 				catch (Exception e)
 				{
-					e.printStackTrace();
 					CopyInfo.setText("Error whilst running.");
+					e.printStackTrace();
 
 				} finally {
 					Timer timer = new Timer();
