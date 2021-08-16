@@ -16,7 +16,6 @@ import java.awt.Font;
 import javax.swing.JLabel;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.awt.Font;
 
 
 /**
@@ -55,7 +54,7 @@ public class Convertor {
 	}
 
 	/**
-	 * Initialize the contents of the frame.
+	 * Initialise the contents of the frame.
 	 */
 
 	private boolean Dark = true;
