@@ -134,11 +134,13 @@ public class Convertor {
 		
 		JMenuBar menuBar = new JMenuBar();
 		menuBar.setBackground(Color.GRAY);
-		menuBar.setForeground(Color.GRAY);
+		menuBar.setForeground(Color.BLACK);
 		frmLeaderboardConvertor.setJMenuBar(menuBar);
 		
 		// Copy button
 		JButton Copy = new JButton("Copy");
+		Copy.setForeground(Color.BLACK);
+		Copy.setBackground(Color.WHITE);
 		menuBar.add(Copy);
 		
 		JButton DarkMods = new JButton("LightMode");
