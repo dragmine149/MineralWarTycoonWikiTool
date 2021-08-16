@@ -33,7 +33,7 @@ public class CodeConvert {
 	}
 	
 	public static String Convert(String Username, int Pos, String New, String Current) {
-		String Char = "";
+		String Char;
 		switch (Pos) {
 		case 1:
 			Char = "🟧";
@@ -70,8 +70,10 @@ public class CodeConvert {
 		switch (table) {
 		case 0:
 			Start = Start + "!Rebirths\n!Rebirths since last week";
+			break;
 		case 1:
 			Start = Start + "!kills\n!Killstreak improvement this week";
+			break;
 		}
 		
 		Start = Start + "\n" + Info + "|}";
