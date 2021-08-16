@@ -1,14 +1,15 @@
 package main;
 
 import java.util.Calendar;
-import java.text.SimpleDateFormat;
+import java.text.DateFormatSymbols;
 
 public class CodeConvert {
 
 	public static String Month() {
 		Calendar now = Calendar.getInstance();
+		int imonth = now.get(Calendar.MONTH);
 		int Week = now.get(Calendar.WEEK_OF_MONTH);
-		String Month = new SimpleDateFormat("MMMM").format(Calendar.MONTH);
+		String Month = new DateFormatSymbols().getMonths()[imonth];
 		int Year = now.get(Calendar.YEAR);
 		return Month + " " + Year + " " + Week + ordinalNo(Week) + " week";
 	}
