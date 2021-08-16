@@ -182,39 +182,22 @@ public class Convertor {
 					if (Output == "Error in generating data.") { // check IF output
 						System.out.print(Output + "\n\n"); // print
 						CopyInfo.setText(Output);
-
-						Timer timer = new Timer();
-						TimerTask task = new printer();
-						
-						printer.Inputs(CopyInfo, "Ready to use", timer);
-						timer.schedule(task, 5000);
-						
 					} else {
 						KeyboardCopy.Copy(Output); // else copy
 						CopyInfo.setText("Coppied!");
-						
-						Timer timer = new Timer();
-						TimerTask task = new printer();
-						
-						printer.Inputs(CopyInfo, "Ready to use", timer);
-						timer.schedule(task, 5000);
-						
 					}
 				} 
 				catch (Exception e) 
 				{
 					e.printStackTrace();
-				} 
-				finally 
-				{
 					CopyInfo.setText("Error whilst running.");
 					
+				} finally {
 					Timer timer = new Timer();
 					TimerTask task = new printer();
 					
 					printer.Inputs(CopyInfo, "Ready to use", timer);
 					timer.schedule(task, 5000);
-					
 				}
 			}
 			
