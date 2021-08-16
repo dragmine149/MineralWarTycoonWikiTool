@@ -5,12 +5,16 @@ import java.awt.EventQueue;
 import java.awt.TextArea;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.concurrent.TimeUnit;
 
 import javax.swing.JButton;
 import javax.swing.JEditorPane;
 import javax.swing.JFrame;
 import javax.swing.WindowConstants;
+
+import javax.swing.JLabel;
+import java.util.Timer;
+import java.util.TimerTask;
+import java.awt.Font;
 
 
 /**
@@ -47,8 +51,8 @@ public class Convertor {
 	 */
 	public Convertor() {
 		initialize();
-	}
-
+	}	
+	
 	/**
 	 * Initialize the contents of the frame.
 	 */
@@ -66,7 +70,7 @@ public class Convertor {
 		
 		// Copy button
 		JButton Copy = new JButton("Copy");
-		Copy.setBounds(327, 6, 117, 29);
+		Copy.setBounds(327, -2, 117, 29);
 		frmLeaderboardConvertor.getContentPane().add(Copy);
 		
 		// Data input
@@ -130,8 +134,15 @@ public class Convertor {
 		frmLeaderboardConvertor.getContentPane().add(Information);
 		
 		JButton DarkMods = new JButton("LightMode");
-		DarkMods.setBounds(327, 39, 117, 29);
+		DarkMods.setBounds(327, 59, 117, 29);
 		frmLeaderboardConvertor.getContentPane().add(DarkMods);
+		
+		JLabel CopyInfo = new JLabel("Ready for use");
+		CopyInfo.setFont(new Font("Lucida Grande", Font.PLAIN, 10));
+		CopyInfo.setForeground(Color.WHITE);
+		CopyInfo.setBackground(Color.LIGHT_GRAY);
+		CopyInfo.setBounds(337, 27, 100, 34);
+		frmLeaderboardConvertor.getContentPane().add(CopyInfo);
 		DarkMods.addActionListener(new ActionListener() {
 			
 			@Override
@@ -142,11 +153,15 @@ public class Convertor {
 					Information.setBackground(Color.WHITE);
 					UpdateLog.setBackground(Color.WHITE);
 					frmLeaderboardConvertor.getContentPane().setBackground(Color.WHITE);
+					CopyInfo.setBackground(Color.WHITE);
+					CopyInfo.setForeground(Color.BLACK);
 				} else {
 					DarkMods.setText("LightMode");
 					Information.setBackground(Color.LIGHT_GRAY);
 					UpdateLog.setBackground(Color.LIGHT_GRAY);
 					frmLeaderboardConvertor.getContentPane().setBackground(Color.DARK_GRAY);
+					CopyInfo.setBackground(Color.LIGHT_GRAY);
+					CopyInfo.setForeground(Color.WHITE);
 				}
 			}
 		});
@@ -166,36 +181,40 @@ public class Convertor {
 					
 					if (Output == "Error in generating data.") { // check IF output
 						System.out.print(Output + "\n\n"); // print
-						Copy.setText(Output);
-						try {
-							TimeUnit.SECONDS.sleep(5);
-						} catch (InterruptedException e) {
-							e.printStackTrace();
-						} finally {
-							Copy.setText("Copy");
-						}
+						CopyInfo.setText(Output);
+
+						Timer timer = new Timer();
+						TimerTask task = new printer();
+						
+						printer.Inputs(CopyInfo, "Ready to use", timer);
+						timer.schedule(task, 5000);
+						
 					} else {
 						KeyboardCopy.Copy(Output); // else copy
-						Copy.setText("Coppied!");
-						try {
-							TimeUnit.SECONDS.sleep(5);
-						} catch (InterruptedException e) {
-							e.printStackTrace();
-						} finally {
-							Copy.setText("Copy");
-						}
+						CopyInfo.setText("Coppied!");
+						
+						Timer timer = new Timer();
+						TimerTask task = new printer();
+						
+						printer.Inputs(CopyInfo, "Ready to use", timer);
+						timer.schedule(task, 5000);
+						
 					}
-				} catch (Exception e) {
+				} 
+				catch (Exception e) 
+				{
 					e.printStackTrace();
-				} finally {
-					Copy.setText("Error whilst running.");
-					try {
-						TimeUnit.SECONDS.sleep(5);
-					} catch (InterruptedException e) {
-						e.printStackTrace();
-					} finally {
-						Copy.setText("Copy");
-					}
+				} 
+				finally 
+				{
+					CopyInfo.setText("Error whilst running.");
+					
+					Timer timer = new Timer();
+					TimerTask task = new printer();
+					
+					printer.Inputs(CopyInfo, "Ready to use", timer);
+					timer.schedule(task, 5000);
+					
 				}
 			}
 			
