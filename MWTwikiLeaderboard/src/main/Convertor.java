@@ -94,6 +94,7 @@ public class Convertor {
 				+ "(killstreak and rebirth)\n"
 				+ "- Changed how getting the leaderboard name works.\n"
 				+ "(Better for future)\n"
+				+ "- Fixed an issue with the month name sometimes being incorrec"
 				+ "\n\n"
 				+ "Update 2.1:\n"
 				+ "- Default dark mode, no button to switch yet.\n"
