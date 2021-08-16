@@ -143,6 +143,8 @@ public class Convertor {
 		CopyInfo.setBackground(Color.LIGHT_GRAY);
 		CopyInfo.setBounds(337, 27, 100, 34);
 		frmLeaderboardConvertor.getContentPane().add(CopyInfo);
+		
+		
 		DarkMods.addActionListener(new ActionListener() {
 			
 			@Override
@@ -177,7 +179,13 @@ public class Convertor {
 					String Text = Input.getText().toString(); // set (later)
 					String Output = "Error in generating data."; // set
 					
-					Output = Create.Info(Text, OptionCalc.Input(Text)); // get the output
+					int O = OptionCalc.Input(Text);
+					if (O == -1) {
+						System.err.println("Error in getting leaderboard value");
+						throw new Error("Error in getting leaderboard value");
+					}
+					
+					Output = Create.Info(Text, O); // get the output
 					
 					if (Output == "Error in generating data.") { // check IF output
 						System.out.print(Output + "\n\n"); // print
